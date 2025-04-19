@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:neoflex_quest/pages/programming_tasks_page.dart';
+import 'package:neoflex_quest/pages/quiz_page.dart';
+import 'package:neoflex_quest/pages/shop_page.dart';
 
+import 'achievements_page.dart';
+import 'company_info_page.dart';
+import 'daily_tasks_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,11 +19,12 @@ class HomePage extends StatelessWidget {
       ),
       home: const HomeScreen(),
       routes: {
-        '/achievements': (_) => const AchievementsPage(),
-        '/daily': (_) => const DailyTasksPage(),
-        '/shop': (_) => const ShopPage(),
-        '/tasks': (_) => const ProgrammingTasksPage(),
-        '/company': (_) => const CompanyInfoPage(),
+        '/achievements': (_) => AchievementsPage(),
+        '/daily': (_) => DailyTasksPage(),
+        '/shop': (_) => ShopPage(),
+        '/tasks': (_) => ProgrammingTasksPage(),
+        '/company': (_) => CompanyInfoPage(),
+        '/quiz': (_) => QuizPage(),
       },
     );
   }
@@ -44,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   IconButton(
                     icon: const Icon(Icons.emoji_events_outlined),
-                    iconSize: 32, // <-- добавлено
+                    iconSize: 32,
                     onPressed: () {
                       Navigator.pushNamed(context, '/achievements');
                     },
@@ -60,6 +67,14 @@ class HomeScreen extends StatelessWidget {
               child: CircularProgressIndicator(
                 value: 0.6,
               ),
+            ),
+
+            const SizedBox(height: 30),
+
+            // Кнопка "Начать квиз"
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/quiz'),
+              child: const Text('Начать квиз'),
             ),
 
             const Spacer(),
@@ -126,66 +141,4 @@ class _HomeIconButton extends StatelessWidget {
       ),
     );
   }
-}
-
-// Все страницы-заглушки внутри файла
-class AchievementsPage extends StatelessWidget {
-  const AchievementsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Ачивки')),
-      body: const Center(child: Text('Achievements page')),
-    );
-  }
-}
-
-class DailyTasksPage extends StatelessWidget {
-  const DailyTasksPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Дейлики')),
-      body: const Center(child: Text('Daily Tasks Page')),
-    );
-  }
-}
-
-class ShopPage extends StatelessWidget {
-  const ShopPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Магазин')),
-      body: const Center(child: Text('Shop Page')),
-    );
-  }
-}
-
-class ProgrammingTasksPage extends StatelessWidget {
-  const ProgrammingTasksPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Задачи')),
-      body: const Center(child: Text('Programming Tasks Page')),
-    );
-  }
-}
-
-class CompanyInfoPage extends StatelessWidget {
-  const CompanyInfoPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('О компании')),
-      body: const Center(child: Text('Company Info Page')),
-    );
-  }
-
 }

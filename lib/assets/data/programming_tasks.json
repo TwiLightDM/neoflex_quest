@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Что выведет Python?\nprint(3 + 2 * 2)",
+    "options": ["7", "6", "8", "5"],
+    "answer": "7"
+  },
+  {
+    "question": "Что выведет C++?\nstd::cout << 10 % 3;",
+    "options": ["1", "0", "3", "2"],
+    "answer": "1"
+  },
+  {
+    "question": "Что выведет JavaScript?\nconsole.log(typeof NaN);",
+    "options": ["number", "NaN", "undefined", "string"],
+    "answer": "number"
+  },
+  {
+    "question": "Что выведет Java?\nSystem.out.println(5 / 2);",
+    "options": ["2", "2.5", "2.0", "3"],
+    "answer": "2"
+  },
+  {
+    "question": "Что выведет Python?\nprint(bool(0))",
+    "options": ["False", "True", "None", "0"],
+    "answer": "False"
+  },
+  {
+    "question": "Что выведет JavaScript?\nconsole.log([] + []);",
+    "options": ["", "undefined", "[]", "null"],
+    "answer": ""
+  },
+  {
+    "question": "Что выведет C++?\nbool b = -1;\nstd::cout << b;",
+    "options": ["1", "0", "-1", "true"],
+    "answer": "1"
+  },
+  {
+    "question": "Что выведет Java?\nSystem.out.println(\"2\" + 2);",
+    "options": ["22", "4", "Error", "\"2\"2"],
+    "answer": "22"
+  },
+  {
+    "question": "Что выведет Python?\nprint(\"Hello\"[1])",
+    "options": ["e", "H", "o", "l"],
+    "answer": "e"
+  },
+  {
+    "question": "Что выведет JavaScript?\nconsole.log(1 == '1');",
+    "options": ["true", "false", "error", "undefined"],
+    "answer": "true"
+  }
+]
