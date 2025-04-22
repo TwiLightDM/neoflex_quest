@@ -1,0 +1,38 @@
+[
+  {
+    "image": "lib/assets/images/shop/bookmarks.jpg",
+    "price": 500
+  },
+  {
+    "image": "lib/assets/images/shop/bottle.jpg",
+    "price": 3000
+  },
+  {
+    "image": "lib/assets/images/shop/column1.jpg",
+    "price": 10000
+  },
+  {
+    "image": "lib/assets/images/shop/column2.jpg",
+    "price": 10000
+  },
+  {
+    "image": "lib/assets/images/shop/notepad1.jpg",
+    "price": 2000
+  },
+  {
+    "image": "lib/assets/images/shop/notepad2.jpg",
+    "price": 2000
+  },
+  {
+    "image": "lib/assets/images/shop/powerbank.jpg",
+    "price": 10000
+  },
+  {
+    "image": "lib/assets/images/shop/squish.jpg",
+    "price": 1800
+  },
+  {
+    "image": "lib/assets/images/shop/thermos.jpg",
+    "price": 7000
+  }
+]

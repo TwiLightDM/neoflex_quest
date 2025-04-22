@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:lottie/lottie.dart';
 
+import '../services/coin_manager.dart';
+
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
 
@@ -45,7 +47,10 @@ class _QuizPageState extends State<QuizPage> {
     setState(() {
       _isAnswered = true;
       _selectedOption = index;
-      if (isCorrect) _correctAnswers++;
+      if (isCorrect) {
+        _correctAnswers++;
+        CoinManager.addCoins(_showAnswer ? 50 : 100);
+      };
     });
 
     Future.delayed(const Duration(milliseconds: 800), () {

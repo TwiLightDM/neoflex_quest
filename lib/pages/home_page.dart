@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:neoflex_quest/pages/programming_tasks_page.dart';
 import 'package:neoflex_quest/pages/quiz_page.dart';
 import 'package:neoflex_quest/pages/shop_page.dart';
-
-import 'achievements_page.dart';
-import 'company_info_page.dart';
-import 'daily_tasks_page.dart';
+import 'package:neoflex_quest/pages/achievements_page.dart';
+import 'package:neoflex_quest/pages/company_info_page.dart';
+import 'package:neoflex_quest/pages/daily_tasks_page.dart';
+import 'package:neoflex_quest/services/coin_manager.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,9 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Главная',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomeScreen(),
       routes: {
         '/achievements': (_) => AchievementsPage(),
@@ -30,8 +28,29 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _coins = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCoins();
+  }
+
+  Future<void> _loadCoins() async {
+    await CoinManager.init();
+    final coins = await CoinManager.getCoins();
+    setState(() {
+      _coins = coins;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +58,11 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Верхняя панель
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 12.0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -49,37 +70,35 @@ class HomeScreen extends StatelessWidget {
                     'Главная',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.emoji_events_outlined),
-                    iconSize: 32,
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/achievements');
-                    },
+                  Row(
+                    children: [
+                      ValueListenableBuilder<int>(
+                        valueListenable: CoinManager.coins,
+                        builder: (context, coins, _) {
+                          return Text('$coins монет', style: const TextStyle(fontSize: 16));
+                        },
+                      ),
+                      const SizedBox(width: 16),
+                      IconButton(
+                        icon: const Icon(Icons.emoji_events_outlined),
+                        iconSize: 32,
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/achievements');
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-
             const SizedBox(height: 50),
-
-            // Прогресс-бар
-            const Center(
-              child: CircularProgressIndicator(
-                value: 0.6,
-              ),
-            ),
-
+            const Center(child: CircularProgressIndicator(value: 0.6)),
             const SizedBox(height: 30),
-
-            // Кнопка "Начать квиз"
             ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/quiz'),
               child: const Text('Начать квиз'),
             ),
-
             const Spacer(),
-
-            // Горизонтальные кнопки с иконками
             Padding(
               padding: const EdgeInsets.only(bottom: 32.0),
               child: Row(
@@ -115,7 +134,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Виджет для кнопок с иконкой и подписью
 class _HomeIconButton extends StatelessWidget {
   final IconData icon;
   final String label;

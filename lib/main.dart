@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:neoflex_quest/services/coin_manager.dart';
 import 'pages/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CoinManager.init();
   runApp(MyApp());
 }
 
