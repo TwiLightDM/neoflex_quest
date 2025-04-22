@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  url_launcher: ^6.1.10
   flutter:
     sdk: flutter
 
@@ -54,6 +55,7 @@ dev_dependencies:
 flutter:
   assets:
     - lib/assets/data/
+    - lib/assets/images/info/
     - lib/assets/images/
     - lib/assets/videos/
     - lib/assets/animations/ 
