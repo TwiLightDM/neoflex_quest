@@ -26,7 +26,7 @@ class _QuizPageState extends State<QuizPage> {
 
   Future<void> _loadQuestions() async {
     try {
-      final String response = await rootBundle.loadString('assets/data/quest.json');
+      final String response = await rootBundle.loadString('lib/assets/data/quest.json');
       final data = json.decode(response);
       setState(() {
         _questions = data;
@@ -144,7 +144,7 @@ class _QuizPageState extends State<QuizPage> {
                   child: SizedBox(
                     width: 80,
                     height: 80,
-                    child: Lottie.asset('assets/animations/neonchik.json'),
+                    child: Lottie.asset('lib/assets/animations/neonchik.json'),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -196,7 +196,7 @@ class ResultPage extends StatelessWidget {
             SizedBox(
               width: 200,
               height: 200,
-              child: Lottie.asset('assets/animations/fire.json'),
+              child: Lottie.asset('lib/assets/animations/fire.json'),
             ),
           ],
         ),
