@@ -39,9 +39,9 @@ class CompanyInfoPage extends StatelessWidget {
           children: [
             // Описание компании с проверенными датами
             _sectionText(
-              'Neoflex — ведущая российская ИТ‑компания, основанная в 2005 году и базирующаяся в Москве. '
-              'Компания насчитывает от 1 001 до 5 000 сотрудников и более 50 % клиентов из ТОП‑100 банков России, '
-              'а также организаций более чем из 10 стран Европы, Азии и Африки.',
+              'Neoflex — ведущая российская ИТ‑компания, основанная в 2005 году, с широкой географией присутствия: филиалы компании работают в различных регионах страны — от крупных мегаполисов до перспективных региональных центров, включая Саратов. '
+              'Компания объединяет крупную команду высококвалифицированных специалистов и сотрудничает с большинством ведущих банков страны, '
+              'а также с другими успешными организациями более чем из 10 стран Европы, Азии и Африки.',
             ),
 
             // Изображение офиса/логотипа
@@ -87,15 +87,13 @@ class CompanyInfoPage extends StatelessWidget {
             // Кликабельная ссылка
             const SizedBox(height: 20),
             Center(
-              child: GestureDetector(
-                onTap: _launchURL,
-                child: const Text(
-                  'Перейти на официальный сайт Neoflex',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                  ),
+              child: ElevatedButton.icon(
+                onPressed: _launchURL,
+                icon: const Icon(Icons.open_in_new),
+                label: const Text('Официальный сайт Neoflex'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  textStyle: const TextStyle(fontSize: 16),
                 ),
               ),
             ),
