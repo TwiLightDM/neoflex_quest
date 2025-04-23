@@ -1,0 +1,17 @@
+[
+  {
+    "key": "quiz",
+    "title": "Пройти квиз",
+    "reward": 300
+  },
+  {
+    "key": "programming",
+    "title": "Пройти задачки",
+    "reward": 300
+  },
+  {
+    "key": "quiz_perfect",
+    "title": "Пройти квиз с ≤2 ошибками",
+    "reward": 500
+  }
+]

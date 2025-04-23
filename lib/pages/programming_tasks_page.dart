@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'dart:convert';
+import 'package:lottie/lottie.dart';
+import 'package:neoflex_quest/pages/result_page.dart';
+
+import '../services/coin_manager.dart';
 
 class ProgrammingTasksPage extends StatefulWidget {
   const ProgrammingTasksPage({super.key});
@@ -12,9 +16,10 @@ class ProgrammingTasksPage extends StatefulWidget {
 class _ProgrammingTasksPageState extends State<ProgrammingTasksPage> {
   List<dynamic> _questions = [];
   int _currentIndex = 0;
+  int _correctAnswers = 0;
   bool _isAnswered = false;
   int? _selectedOption;
-  bool _isCorrect = false;
+  bool _showAnswer = false;
 
   @override
   void initState() {
@@ -23,12 +28,15 @@ class _ProgrammingTasksPageState extends State<ProgrammingTasksPage> {
   }
 
   Future<void> _loadQuestions() async {
-    final String response =
-    await rootBundle.loadString('lib/assets/data/programming_tasks.json');
-    final data = await json.decode(response);
-    setState(() {
-      _questions = data;
-    });
+    try {
+      final String response = await rootBundle.loadString('lib/assets/data/programming_tasks.json');
+      final data = json.decode(response);
+      setState(() {
+        _questions = data;
+      });
+    } catch (e) {
+      debugPrint("Ошибка загрузки данных: $e");
+    }
   }
 
   void _handleAnswer(int index) {
@@ -38,24 +46,37 @@ class _ProgrammingTasksPageState extends State<ProgrammingTasksPage> {
     bool isCorrect = current['options'][index] == current['answer'];
 
     setState(() {
-      _selectedOption = index;
-      _isCorrect = isCorrect;
       _isAnswered = true;
+      _selectedOption = index;
+      if (isCorrect) {
+        _correctAnswers++;
+        CoinManager.addCoins(100);
+      };
     });
 
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (isCorrect) {
+    Future.delayed(const Duration(milliseconds: 800), () {
+      if (_currentIndex + 1 < _questions.length) {
         setState(() {
-          _currentIndex = (_currentIndex + 1) % _questions.length;
-          _isAnswered = false;
+          _currentIndex++;
           _selectedOption = null;
+          _isAnswered = false;
+          _showAnswer = false;
         });
       } else {
-        setState(() {
-          _isAnswered = false;
-          _selectedOption = null;
-        });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                ResultPage(correctAnswers: _correctAnswers),
+          ),
+        );
       }
+    });
+  }
+
+  void _revealAnswer() {
+    setState(() {
+      _showAnswer = true;
     });
   }
 
@@ -70,56 +91,93 @@ class _ProgrammingTasksPageState extends State<ProgrammingTasksPage> {
     final current = _questions[_currentIndex];
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Программистские задачи")),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text(
-              current['question'],
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 32),
-            Expanded(
-              child: GridView.builder(
-                itemCount: current['options'].length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: 2.8,
-                ),
-                itemBuilder: (context, index) {
-                  final isSelected = _selectedOption == index;
-                  Color bgColor = Colors.grey[300]!;
+      appBar: AppBar(title: const Text("Задачки по программированию")),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
+              child: Column(
+                children: [
+                  Text(
+                    current['question'],
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 40),
+                  ...List.generate(current['options'].length, (index) {
+                    final isSelected = _selectedOption == index;
+                    final isCorrect = current['options'][index] == current['answer'];
+                    final isDark = Theme.of(context).brightness == Brightness.dark;
 
-                  if (isSelected) {
-                    bgColor = _isCorrect ? Colors.green : Colors.red;
-                  }
+                    Color bgColor = isDark ? Colors.grey[800]! : Colors.grey[300]!;
 
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    decoration: BoxDecoration(
-                      color: bgColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: InkWell(
+                    if (isSelected) {
+                      bgColor = isCorrect ? Colors.green : Colors.red;
+                    }
+
+                    return GestureDetector(
                       onTap: () => _handleAnswer(index),
-                      child: Center(
-                        child: Text(
-                          current['options'][index],
-                          style: const TextStyle(fontSize: 18),
-                          textAlign: TextAlign.center,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: bgColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text(
+                            current['options'][index],
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: isDark ? Colors.white : Colors.black,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  })
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          Positioned(
+            left: 10,
+            bottom: 10,
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: _revealAnswer,
+                  child: SizedBox(
+                    width: 80,
+                    height: 80,
+                    child: Lottie.asset('lib/assets/animations/neonchik.json'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Container(
+                  width: 180,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.black87,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    _showAnswer
+                        ? "Ответ: ${current['answer']}"
+                        : "Neoflex всегда поможет",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

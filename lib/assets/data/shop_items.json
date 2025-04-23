@@ -1,38 +1,47 @@
 [
   {
     "image": "lib/assets/images/shop/bookmarks.jpg",
+    "name": "Закладки",
     "price": 500
   },
   {
     "image": "lib/assets/images/shop/bottle.jpg",
+    "name": "Бутылка",
     "price": 3000
   },
   {
     "image": "lib/assets/images/shop/column1.jpg",
+    "name": "Колонка",
     "price": 10000
   },
   {
     "image": "lib/assets/images/shop/column2.jpg",
+    "name": "Колонка",
     "price": 10000
   },
   {
     "image": "lib/assets/images/shop/notepad1.jpg",
+    "name": "Блокнот",
     "price": 2000
   },
   {
     "image": "lib/assets/images/shop/notepad2.jpg",
+    "name": "Блокнот",
     "price": 2000
   },
   {
     "image": "lib/assets/images/shop/powerbank.jpg",
+    "name": "Повербанн",
     "price": 10000
   },
   {
     "image": "lib/assets/images/shop/squish.jpg",
+    "name": "Сквиш",
     "price": 1800
   },
   {
     "image": "lib/assets/images/shop/thermos.jpg",
+    "name": "Термос",
     "price": 7000
   }
 ]

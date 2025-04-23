@@ -6,17 +6,17 @@
   },
   {
     "question": "Что выведет C++?\nstd::cout << 10 % 3;",
-    "options": ["1", "0", "3", "2"],
+    "options": ["0", "1", "3", "2"],
     "answer": "1"
   },
   {
     "question": "Что выведет JavaScript?\nconsole.log(typeof NaN);",
-    "options": ["number", "NaN", "undefined", "string"],
+    "options": [ "NaN", "undefined", "number","string"],
     "answer": "number"
   },
   {
     "question": "Что выведет Java?\nSystem.out.println(5 / 2);",
-    "options": ["2", "2.5", "2.0", "3"],
+    "options": ["2.0", "2.5", "2", "3"],
     "answer": "2"
   },
   {
@@ -31,7 +31,7 @@
   },
   {
     "question": "Что выведет C++?\nbool b = -1;\nstd::cout << b;",
-    "options": ["1", "0", "-1", "true"],
+    "options": ["true", "0", "-1", "1"],
     "answer": "1"
   },
   {
@@ -41,7 +41,7 @@
   },
   {
     "question": "Что выведет Python?\nprint(\"Hello\"[1])",
-    "options": ["e", "H", "o", "l"],
+    "options": ["H", "e", "l", "o"],
     "answer": "e"
   },
   {

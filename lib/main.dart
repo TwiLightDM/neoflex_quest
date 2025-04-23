@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:neoflex_quest/pages/achievements_page.dart';
+import 'package:neoflex_quest/pages/company_info_page.dart';
+import 'package:neoflex_quest/pages/programming_tasks_page.dart';
+import 'package:neoflex_quest/pages/quiz_page.dart';
+import 'package:neoflex_quest/pages/shop_page.dart';
 import 'package:neoflex_quest/services/coin_manager.dart';
 import 'pages/home_page.dart';
 
@@ -23,7 +28,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       darkTheme: ThemeData(
-        primaryColor: Colors.deepOrange,
+        primaryColor:  Colors.pink,
         colorScheme: ColorScheme.dark(
           primary: Colors.deepOrange,
           secondary: Colors.pinkAccent,
@@ -31,6 +36,13 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(),
+      routes: {
+        '/quiz': (context) =>  QuizPage(),
+        '/tasks': (context) =>  ProgrammingTasksPage(),
+        '/shop': (context) =>  ShopPage(),
+        '/achievements': (context) =>  AchievementsPage(),
+        '/company': (context) =>  CompanyInfoPage(),
+      },
     );
   }
 }

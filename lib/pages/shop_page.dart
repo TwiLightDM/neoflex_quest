@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:neoflex_quest/services/coin_manager.dart';
 
+import '../models/shop_item.dart';
+
 class ShopPage extends StatefulWidget {
   @override
   _ShopPageState createState() => _ShopPageState();
@@ -37,8 +39,8 @@ class _ShopPageState extends State<ShopPage> {
   Future<void> buyItem(int price) async {
     final currentCoins = await CoinManager.getCoins();
     if (currentCoins >= price) {
-      await CoinManager.addCoins(-price); // тратим
-      await loadCoins(); // обновим баланс
+      await CoinManager.addCoins(-price);
+      await loadCoins();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Покупка успешна! 🎉'),
@@ -81,69 +83,32 @@ class _ShopPageState extends State<ShopPage> {
             mainAxisSpacing: 10,
             childAspectRatio: 0.75,
           ),
-          itemBuilder: (context, index) {
-            final item = items[index];
-            return ShopItem(
-              imagePath: item['image'],
-              price: item['price'],
-              onBuy: () => buyItem(item['price']),
-            );
-          },
+            itemBuilder: (context, index) {
+              final item = items[index];
+              final isDark = Theme.of(context).brightness == Brightness.dark;
+
+              return Container(
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.grey[850] : Colors.grey[200],
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: isDark ? Colors.black26 : Colors.grey.withOpacity(0.3),
+                      blurRadius: 6,
+                      offset: const Offset(2, 4),
+                    ),
+                  ],
+                ),
+                child: ShopItem(
+                  imagePath: item['image'],
+                  name: item['name'],
+                  price: item['price'],
+                  onBuy: () => buyItem(item['price']),
+                  textColor: isDark ? Colors.white : Colors.black,
+                ),
+              );
+            }
         ),
-      ),
-    );
-  }
-}
-
-class ShopItem extends StatelessWidget {
-  final String imagePath;
-  final int price;
-  final VoidCallback onBuy;
-
-  const ShopItem({
-    required this.imagePath,
-    required this.price,
-    required this.onBuy,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      elevation: 4,
-      child: Column(
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              children: [
-                Text(
-                  '$price монет',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.orange[800],
-                  ),
-                ),
-                const SizedBox(height: 6),
-                ElevatedButton(
-                  onPressed: onBuy,
-                  child: const Text("Купить"),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
