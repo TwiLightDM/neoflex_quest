@@ -20,18 +20,18 @@ class MyApp extends StatelessWidget {
       title: 'Геймифицированное приложение',
       themeMode: ThemeMode.system,
       theme: ThemeData(
-        primaryColor: Colors.orange,
+        primaryColor: Colors.pink,
         colorScheme: ColorScheme.light(
-          primary: Colors.orange,
-          secondary: Colors.pink,
+          primary: Colors.pink,
+          secondary: Colors.pinkAccent,
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       darkTheme: ThemeData(
-        primaryColor:  Colors.pink,
+        primaryColor:  Colors.orange,
         colorScheme: ColorScheme.dark(
-          primary: Colors.deepOrange,
-          secondary: Colors.pinkAccent,
+          primary: Colors.orange,
+          secondary: Colors.deepOrange,
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

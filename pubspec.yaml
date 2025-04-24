@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_svg: ^2.0.7
   provider: ^6.1.3
   shared_preferences: ^2.2.2
   sqflite: ^2.3.0
@@ -63,6 +64,7 @@ flutter:
     - lib/assets/images/
     - lib/assets/images/info/
     - lib/assets/images/shop/
+    - lib/assets/images/neo/neonchik.svg
     - lib/assets/sounds/
     - lib/assets/animations/
   # The following line ensures that the Material Icons font is

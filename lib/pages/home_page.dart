@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neoflex_quest/services/coin_manager.dart';
 import '../models/home_icon_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,16 +19,32 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   int _coins = 0;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
     _loadCoins();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _animation = Tween<double>(begin: 0, end: 20).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
   }
 
-  // Функция для загрузки монет
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Future<void> _loadCoins() async {
     final coins = await CoinManager.getCoins();
     setState(() {
@@ -45,10 +62,30 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 16),
         ],
       ),
-      body: const Center(
-        child: Text(
-          'Добро пожаловать!',
-          style: TextStyle(fontSize: 18),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Добро пожаловать!',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                return Transform.translate(
+                  offset: Offset(0, -_animation.value),
+                  child: child,
+                );
+              },
+              child: SvgPicture.asset(
+                'lib/assets/images/neo/neonchik.svg',
+                height: 180,
+
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Padding(
