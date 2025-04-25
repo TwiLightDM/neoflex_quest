@@ -15,7 +15,7 @@ class HomeIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final color = isDark ? Colors.orange : Colors.pink;
+    final color = isDark ? Colors.white : Colors.black;
 
     return GestureDetector(
       onTap: onTap,

@@ -37,18 +37,19 @@ class CompanyInfoPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Описание компании с проверенными датами
             _sectionText(
               'Neoflex — ведущая российская ИТ‑компания, основанная в 2005 году, с широкой географией присутствия: филиалы компании работают в различных регионах страны — от крупных мегаполисов до перспективных региональных центров, включая Саратов. '
               'Компания объединяет крупную команду высококвалифицированных специалистов и сотрудничает с большинством ведущих банков страны, '
               'а также с другими успешными организациями более чем из 10 стран Европы, Азии и Африки.',
             ),
 
-            // Изображение офиса/логотипа
             const SizedBox(height: 20),
-            Image.asset('lib/assets/images/info/neoflex_training.jpg'),
+            Image.asset(
+              Theme.of(context).brightness == Brightness.dark
+                  ? 'lib/assets/images/info/neoflex_training_dark.jpg'
+                  : 'lib/assets/images/info/neoflex_training.jpg',
+            ),
 
-            // Миссия и ценности
             _sectionTitle('Миссия и ценности'),
             _sectionText(
               'Мы стремимся ускорить цифровую трансформацию бизнеса клиентов за счёт инновационных ИТ‑решений, '
@@ -56,7 +57,6 @@ class CompanyInfoPage extends StatelessWidget {
               'профессионализм, клиентоориентированность и постоянное совершенствование.',
             ),
 
-            // Направления деятельности
             _sectionTitle('Направления деятельности'),
             _sectionText('• Разработка корпоративных и банковских платформ'),
             _sectionText('• Внедрение решений на базе LLM и Generative AI'),
@@ -64,11 +64,9 @@ class CompanyInfoPage extends StatelessWidget {
             _sectionText('• DevOps и облачные инфраструктуры (Kubernetes, Openshift)'),
             _sectionText('• Кибербезопасность и соответствие требованиям ЦБ'),
 
-            // Изображение учебного центра
             const SizedBox(height: 20),
             Image.asset('lib/assets/images/info/neoflex_office.jpg'),
 
-            // Учебный центр
             _sectionTitle('Учебный центр Neoflex'),
             _sectionText(
               'Neoflex Academy — внутренний учебный центр, где проходят обучение как начинающие стажёры, '
@@ -76,7 +74,6 @@ class CompanyInfoPage extends StatelessWidget {
               'архитектуре микросервисов, DevOps‑практикам и управлению данными.',
             ),
 
-            // Партнёрская сеть и достижения
             _sectionTitle('Партнёрства и достижения'),
             _sectionText(
               '· Партнёр Cisco, Microsoft, Red Hat и Oracle;\n'
@@ -84,7 +81,6 @@ class CompanyInfoPage extends StatelessWidget {
               '· Награждена отраслевыми премиями за инновации в финансах и страховании.',
             ),
 
-            // Кликабельная ссылка
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton.icon(

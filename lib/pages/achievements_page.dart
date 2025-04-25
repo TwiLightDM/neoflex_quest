@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/achievement.dart';
-import '../services/achievement_service.dart'; // путь к AchievementService
+import '../services/achievement_service.dart';
 
 class AchievementsPage extends StatefulWidget {
   const AchievementsPage({super.key});
@@ -21,7 +21,7 @@ class _AchievementsPageState extends State<AchievementsPage> {
   Future<void> _loadAchievements() async {
     await AchievementService.init();
     setState(() {
-      _achievements = AchievementService.all; // или .unlockedAchievements, если нужны только открытые
+      _achievements = AchievementService.all;
     });
   }
 
