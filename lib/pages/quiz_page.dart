@@ -1,8 +1,9 @@
   import 'package:flutter/material.dart';
   import 'package:flutter/services.dart';
   import 'dart:convert';
+  import 'package:neoflex_quest/services/achievement_service.dart';
   import 'package:lottie/lottie.dart';
-import 'package:neoflex_quest/pages/result_page.dart';
+  import 'package:neoflex_quest/pages/result_page.dart';
 
   import '../services/coin_manager.dart';
 
@@ -63,6 +64,10 @@ import 'package:neoflex_quest/pages/result_page.dart';
             _showAnswer = false;
           });
         } else {
+          AchievementService.unlock(context, 'first_quiz');
+          if (_correctAnswers >= 5) {
+                      AchievementService.unlock(context, 'five_correct');
+          }
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

@@ -1,0 +1,15 @@
+[
+    {
+      "id": "first_quiz",
+      "title": "Первый шаг",
+      "description": "Вы прошли свой первый квиз!",
+      "unlocked": false
+    },
+    {
+      "id": "five_correct",
+      "title": "Мозговой штурм",
+      "description": "Вы правильно ответили на 5 вопросов подряд!",
+      "unlocked": false
+    }
+  ]
+  
